@@ -386,14 +386,30 @@ export default class App extends Component {
     this.onCloseUsernameModal();
   }
 
-  onSendMessage(message){
-    this.createMessage(message);
+  onSendMessage(message, file){
+    this.createMessage(message, file);
   }
 
-  createMessage(message){
+  populateMessages(response){
+    let messages = formatMessages(response.body);
+    this.setState({
+      messages: messages,
+    });
+  }
+
+  // assume file is an image for now.
+  createMessage(message, file){
     console.log("Creating message with contents `%s`", message);
 
     let contents = {msg: message};
+    if (typeof file !== 'undefined'){
+      // if present, file will be an image as base64-encoded string
+      let image = $('<img />').attr({
+        'src': `data:image/png;base64,${file}`,
+        'alt': ''
+      });
+      image.appendTo($(document.body));
+    }
     let fileBlob = new Blob([JSON.stringify(contents)],
                             {type: 'application/json'})
     let saveName = ['from:'+this.state.username, 'type:chatmessage'].join('|||');
