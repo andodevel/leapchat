@@ -7,9 +7,11 @@
     "compile_js": "browserify -t [ babelify --presets [ react es2015 ] ] src/index.js -o build/app.js",
     "compile_sass": "gulp sass",
     "inject_static": "gulp inject",
+    "dist": "npm run build && npm run ug",
     "build": "npm-run-all --parallel compile_js compile_sass inject_static",
-    "dev": "watchify -t [ babelify --presets [ react es2015 ] ] src/index.js -o build/app.js",
+    "watch": "watchify -t [ babelify --presets [ react es2015 ] ] src/index.js -o build/app.js",
     "start": "npm run build && ./leapchat",
+    "ug": "node_modules/.bin/uglifyjs build/app.js -c -o build/app.min.js",
     "test": "node_modules/.bin/mocha  --reporter nyan test/.setup.js test/**/*.test.js"
   },
   "repository": {
@@ -41,6 +43,7 @@
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "react-markdown": "^2.4.2",
+    "uglify-js": "^3.0.1",
     "utf8": "^2.1.2"
   },
   "devDependencies": {
