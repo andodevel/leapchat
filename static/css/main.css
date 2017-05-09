@@ -6,8 +6,13 @@ body {
   color: #222;
   font-family: 'Lato', sans-serif; }
 
-.container {
-  width: 100%; }
+.app {
+  width: 100%;
+  margin: 0 auto; }
+
+@media screen and (min-width: 980px) {
+  .app {
+    max-width: 980px; } }
 
 ul {
   list-style: none; }

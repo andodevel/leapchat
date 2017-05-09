@@ -7,8 +7,15 @@ body {
   font-family: 'Lato', sans-serif; }
 
 // remove bootstrap's default gutters
-.container {
+.app {
   width: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 960px) /* Desktop */ {
+  .app {
+    max-width: 980px;
+  }
 }
 
 ul {
@@ -33,6 +40,7 @@ ul {
       width: 80%;
       position: relative;
       word-wrap: break-word;
+      clear: both;
 
       &.chat-outgoing {
         float: right;
