@@ -11,7 +11,9 @@ class ChatContainer extends Component {
         <MessageBox
           messages={messages}
           username={username} />
-        <MessageForm onSendMessage={onSendMessage} />
+        <MessageForm
+          username={username}
+          onSendMessage={onSendMessage} />
       </div>
     );
   }

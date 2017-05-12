@@ -11,3 +11,7 @@ function getRandomNoun(){
 export function generateRandomUsername(){
     return getRandomAdjective() + getRandomNoun();
 }
+
+export function isUsernameValid(username){
+	return !!username;
+}

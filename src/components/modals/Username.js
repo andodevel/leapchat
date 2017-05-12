@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Modal, Button } from 'react-bootstrap';
 
-import { generateRandomUsername } from '../../data/username';
+import { generateRandomUsername, isUsernameValid } from '../../data/username';
 
 class UsernameModal extends Component {
   constructor(){
@@ -41,20 +41,13 @@ class UsernameModal extends Component {
     }
   }
 
-  isUsernameValid(username){
-    if (!username || username.length === 0){
-      return false;
-    }
-    return true;
-  }
-
   onSetUsernameClick(e){
     let username = this.getUsernameInputValue()
 
-    if (!this.isUsernameValid(username)){
-      alert('Invalid username!');
-    } else {
+    if (isUsernameValid(username)){
       this.props.onSetUsername(username);
+    } else {
+      alert('Invalid username!');
     }
   }
 

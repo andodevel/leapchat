@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { Button } from 'react-bootstrap';
 
+import { isUsernameValid } from '../../data/username';
+
 class MessageForm extends Component {
   constructor(props){
     super(props);
@@ -47,13 +49,13 @@ class MessageForm extends Component {
     e.preventDefault();
 
     let { message } = this.state;
+    let { username } = this.props;
 
-    if (!this.isPayloadValid(message)){
-      return false;
+    if (this.isPayloadValid(message) && isUsernameValid(username)){
+      this.props.onSendMessage(message);
+      this.clearMessage();
     }
 
-    this.props.onSendMessage(message);
-    this.clearMessage();
   }
 
   render(){
