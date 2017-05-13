@@ -1,7 +1,12 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
+var gulp = require('gulp'),
+    useref = require('gulp-useref'),
+    gulpif = require('gulp-if'),
+    uglify = require('gulp-uglify'),
+    minifyCss = require('gulp-clean-css'),
+    sass = require('gulp-sass');
 
 var jsFiles = ['*.js', 'src/**/*.js'];
+
 
 gulp.task('default', ['sass:watch']);
 
@@ -14,6 +19,16 @@ gulp.task('sass', function () {
 gulp.task('sass:watch', function () {
   gulp.watch('./static/sass/**/*.scss', ['sass', 'inject']);
 });
+
+
+gulp.task('useref', function(){
+  return gulp.src('index.html')
+    .pipe(useref())
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.css', minifyCss()))
+    .pipe(gulp.dest('build'));
+});
+
 
 gulp.task('inject', function(){
     var wiredep = require('wiredep').stream;
