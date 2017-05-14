@@ -101,13 +101,20 @@ class MessageForm extends Component {
     let dropzoneRef;
 
     return (
-      <div className="message-form">
+      <div className="message-form-container">
         <form role="form" className="form" onSubmit={this.onSendMessage}>
 
-          <div style={{'position': 'relative'}}>
-            <Button onClick={this.onSendMessage} className="send">
-              <i className="fa fa-arrow-circle-right fa-2x"></i>
-            </Button>
+          <div className="message-form">
+            <div className="attach">
+              <Dropzone
+                style={{'width': '0px', 'height': '0px'}}
+                ref={(node) => { dropzoneRef = node; }}
+                onDrop={this.onDrop}>
+              </Dropzone>
+              <Button onClick={() => { dropzoneRef.open() }}>
+                <i className="fa fa-paperclip" aria-hidden="true"></i>
+              </Button>
+            </div>
 
             <div className="message">
               <textarea
@@ -119,14 +126,9 @@ class MessageForm extends Component {
                 placeholder="Enter message" required></textarea>
             </div>
 
-            <div style={{'position': 'absolute', 'left': '0px', 'bottom': '0px', 'width': '30px'}}>
-              <Dropzone
-                style={{'width': '0px', 'height': '0px'}}
-                ref={(node) => { dropzoneRef = node; }}
-                onDrop={this.onDrop}>
-              </Dropzone>
-              <Button onClick={() => { dropzoneRef.open() }}>
-                <i className="fa fa-paperclip" aria-hidden="true"></i>
+            <div className="send">
+              <Button onClick={this.onSendMessage}>
+                <i className="fa fa-arrow-circle-right fa-2x"></i>
               </Button>
             </div>
 

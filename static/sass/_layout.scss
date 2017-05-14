@@ -153,34 +153,47 @@ main {
       padding: 0 15px;
     }
 
-    .message-form {
+    .message-form-container {
       padding: 5px;
       background-color: white;
       border-top: solid 1px #ccc;
       margin-top: auto;
 
-      .message {
-        margin-right: 40px;
+      .message-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
 
-        textarea {
-          /* this font-size disables zooming
-          on mobile safari, which breaks layout */
-          font-size: 16px;
+        .message {
+          flex-grow: 1;
+
+          textarea {
+            /* this font-size disables zooming
+            on mobile safari, which breaks layout */
+            font-size: 16px;
+            max-width: 100%;
+          }
         }
-      }
 
-      button {
-        border: none;
-        padding: 5px;
-        float: right;
-        height: 54px;
-        vertical-align: bottom;
+        .send,
+        .attach {
+          width: 40px;
+          flex: 0 0 40px;
 
-        i {
-          color: #1e202f;
+          button {
+            height: 58px;
+            border: none;
+          }
         }
-      }
-    }
+
+        // hide on mobile for now
+        .attach {
+          display: none;
+        }
+
+      }  // end .message-form
+
+    } // end .message-form-container
 
   } // end .content
 
@@ -197,6 +210,15 @@ main {
         // for now, message box is viewport height
         // less display height of message form
         height: calc(100vh - 70px);
+      }
+
+      .message-form-container {
+
+        .message-form {
+          .attach {
+            display: block;
+          }
+        }
       }
     }
   }

@@ -95,31 +95,40 @@ main {
           color: #333; }
     main .content .message-list {
       padding: 0 15px; }
-    main .content .message-form {
+    main .content .message-form-container {
       padding: 5px;
       background-color: white;
       border-top: solid 1px #ccc;
       margin-top: auto; }
-      main .content .message-form .message {
-        margin-right: 40px; }
-        main .content .message-form .message textarea {
-          /* this font-size disables zooming
-          on mobile safari, which breaks layout */
-          font-size: 16px; }
-      main .content .message-form button {
-        border: none;
-        padding: 5px;
-        float: right;
-        height: 54px;
-        vertical-align: bottom; }
-        main .content .message-form button i {
-          color: #1e202f; }
+      main .content .message-form-container .message-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch; }
+        main .content .message-form-container .message-form .message {
+          flex-grow: 1; }
+          main .content .message-form-container .message-form .message textarea {
+            /* this font-size disables zooming
+            on mobile safari, which breaks layout */
+            font-size: 16px;
+            max-width: 100%; }
+        main .content .message-form-container .message-form .send,
+        main .content .message-form-container .message-form .attach {
+          width: 40px;
+          flex: 0 0 40px; }
+          main .content .message-form-container .message-form .send button,
+          main .content .message-form-container .message-form .attach button {
+            height: 58px;
+            border: none; }
+        main .content .message-form-container .message-form .attach {
+          display: none; }
 
 @media (min-width: 768px) {
   main {
     flex: 5; }
     main .content .message-box {
-      height: calc(100vh - 70px); } }
+      height: calc(100vh - 70px); }
+    main .content .message-form-container .message-form .attach {
+      display: block; } }
 
 .alert-container {
   position: fixed;
