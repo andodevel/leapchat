@@ -44,6 +44,10 @@ class MessageBox extends Component {
     let newMessageFromNotMe = false;
     newMessages.forEach( (message) => {
       newMessageIds.push(message.key);
+      if (!message.msg){
+        // assume it's an image if this attribute is missing
+        return;
+      }
       let content = message.msg.toLowerCase();
       let username = this.props.username.toLowerCase();
       if (content.indexOf('@' + username) > -1){

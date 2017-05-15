@@ -166,7 +166,7 @@ export default class App extends Component {
   }
 
   decryptMessage(message, decryptFileCallback){
-    console.log("Trying to decrypt", message);
+    // console.log("Trying to decrypt", message);
 
     miniLock.crypto.decryptFile(message,
                                 this.state.mID,
@@ -278,34 +278,37 @@ export default class App extends Component {
     let isTypeRoomName = tags.includes('type:roomname');
     let isTypeRoomDescription = tags.includes('type:roomdescription');
 
-    if (isTypeChatmessage){
-      let reader = new FileReader();
-      reader.addEventListener("loadend", () => {
-        let obj = JSON.parse(reader.result);
-        console.log('Decrypted message:', obj);
+    let reader = new FileReader();
+    reader.addEventListener("loadend", () => {
+      let obj = JSON.parse(reader.result);
+      // console.log('Decrypted message:', obj);
 
-        let fromUsername = tagByPrefixStripped(tags, 'from:');
+      let fromUsername = tagByPrefixStripped(tags, 'from:');
 
-        let maybeSenderID = '';
-        if (senderID !== this.state.mID){
-          maybeSenderID = ' (' + senderID + ')';
-        }
+      let maybeSenderID = '';
+      if (senderID !== this.state.mID){
+        maybeSenderID = ' (' + senderID + ')';
+      }
 
-        let msg = {
-          key: msgKey,
-          from: fromUsername + maybeSenderID,
-          msg: obj.msg
-        }
-        this.setState({
-          messages: [...this.state.messages, msg]
-        })
-      });
+      let msg = {
+        key: msgKey,
+        from: fromUsername + maybeSenderID
+      }
 
-      reader.readAsText(fileBlob);  // TODO: Add error handling
-      return;
-    }
+      if (isTypeChatmessage){
+        msg['msg'] = obj.msg;
+      } else if (isTypePicture){
+        msg['image_data'] = obj.msg;
+      }
+      // TODO: Handle other types
 
-    // TODO: Handle other types
+      this.setState({
+        messages: [...this.state.messages, msg]
+      })
+    });
+
+    reader.readAsText(fileBlob);  // TODO: Add error handling
+
 
     console.log(`onReceiveMessage: got non-chat message with tags ${tags}`);
   }
@@ -401,18 +404,20 @@ export default class App extends Component {
   createMessage(message, file){
     console.log("Creating message with contents `%s`", message);
 
-    let contents = {msg: message};
+    let contents,
+        messageType;
+
     if (typeof file !== 'undefined'){
       // if present, file will be an image as base64-encoded string
-      let image = $('<img />').attr({
-        'src': `data:image/png;base64,${file}`,
-        'alt': ''
-      });
-      image.appendTo($(document.body));
+      contents = {msg: file };
+      messageType = 'type:picture';
+    } else {
+      contents = {msg: message };
+      messageType = 'type:chatmessage';
     }
     let fileBlob = new Blob([JSON.stringify(contents)],
                             {type: 'application/json'})
-    let saveName = ['from:'+this.state.username, 'type:chatmessage'].join('|||');
+    let saveName = ['from:'+this.state.username, messageType].join('|||');
     fileBlob.name = saveName;
 
     let mID = this.state.mID;
