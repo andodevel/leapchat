@@ -21,7 +21,7 @@ export default class InfoModal extends Component {
           <p>
             You shouldn't have to sacrifice your privacy and personal information just to chat online. Slack, HipChat, and others make you create an account with your email address, their software doesn't encrypt your messages (they can see everything), and the messages last forever unless you manually delete them.
             In contrast, LeapChat <em>does</em> encrypt your messages (even we can't see them!), <em>doesn't</em> require you to hand over your email address, and messages last for a maximum of 90 days (this will soon be configurable to a shorter duration).
-            Plus, you can host LeapChat on your own server, since it's <a href="https://github.com/cryptag/leapchat" target="_blank">open source</a>!
+            Plus, you can host LeapChat on your own server, since it's <a href="https://github.com/andodevel/leapchat" target="_blank">open source</a>!
           </p>
           <h3>
             How does it work?

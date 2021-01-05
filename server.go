@@ -14,7 +14,7 @@ import (
 	"github.com/cryptag/gosecure/hsts"
 	"github.com/cryptag/gosecure/referrer"
 	"github.com/cryptag/gosecure/xss"
-	"github.com/cryptag/leapchat/miniware"
+	"github.com/andodevel/leapchat/miniware"
 
 	minilock "github.com/cathalgarvey/go-minilock"
 	"github.com/cathalgarvey/go-minilock/taber"

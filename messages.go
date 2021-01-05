@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/cryptag/leapchat/miniware"
+	"github.com/andodevel/leapchat/miniware"
 	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
 )

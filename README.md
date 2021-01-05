@@ -145,7 +145,7 @@ Then, in another terminal session run:
 
 ``` $ go get ./... ```
 
-(An error about not finding `github.com/cryptag/leapchat` is OK here.)
+(An error about not finding `github.com/andodevel/leapchat` is OK here.)
 
 ``` $ go build ```
 
