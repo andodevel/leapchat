@@ -1,0 +1,6 @@
+*.xml
+*.spec.ts
+*.spec.tsx
+jest.config.js
+webpack.config.js
+dist/

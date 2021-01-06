@@ -2,10 +2,29 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["react"],
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2016,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "arrowFunctions": true,
+      "binaryLiterals": true,
+      "blockBindings": true,
+      "classes": true,
+      "defaultParams": true,
+      "destructuring": true,
+      "forOf": true,
+      "modules": true,
+      "objectLiteralComputedProperties": true,
+      "objectLiteralDuplicateProperties": false,
+      "objectLiteralShorthandMethods": true,
+      "objectLiteralShorthandProperties": true,
+      "octalLiterals": true,
+      "restParams": true,
+      "spread": true,
+      "templateStrings": true,
+      "unicodeCodePointEscapes": true,
+      "globalReturn": false,
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     }
   },
   "settings": {
