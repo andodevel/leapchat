@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FaQuestionCircle from 'react-icons/lib/fa/question-circle'
+import { FaQuestionCircle } from 'react-icons/fa'
 
 export default class Info extends Component {
   constructor(props){

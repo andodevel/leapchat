@@ -1,30 +1,48 @@
-const config = require('./webpack.config.base');
+const webpack = require("webpack");
+const config = require("./webpack.config.base");
+const path = require("path");
 
-config.entry = './src';
+config.entry = path.resolve(__dirname + "/src/index.tsx");
 
 config.watch = true;
 
 config.watchOptions = {
   aggregateTimeout: 300,
-  poll: 1000
+  poll: 1000,
 };
 
 config.module.rules = [
   ...config.module.rules,
   {
     test: /\.css$/,
-    loader: ['style-loader',
-      'css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]']
+    use: [
+      {
+        loader: "style-loader",
+      },
+      {
+        loader:
+          "css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]",
+      },
+    ],
   },
-
   {
     test: /\.scss$/,
-    loaders: ['style-loader',
-      'css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]',
-      'sass-loader?sourceMap']
+    use: [
+      {
+        loader: "style-loader",
+      },
+      {
+        loader:
+          "css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]",
+      },
+      {
+        loader: "sass-loader?sourceMap",
+      },
+    ],
   },
 ];
 
-config.devtool = 'source-map';
+config.devtool = "source-map";
+config.plugins.push(new webpack.HotModuleReplacementPlugin());
 
 module.exports = config;

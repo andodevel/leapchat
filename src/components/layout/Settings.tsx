@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FaCog from 'react-icons/lib/fa/cog';
+import {FaCog} from 'react-icons/fa';
 
 export default class Settings extends Component {
   constructor(props) {

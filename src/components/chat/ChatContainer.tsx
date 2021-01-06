@@ -8,15 +8,14 @@ import AutoSuggest from './AutoSuggest';
 
 class ChatContainer extends Component {
   render() {
-    const { messages, username, onSendMessage, alertMessage, alertStyle, onAlertDismiss, chat } = this.props;
+    const { messages, username, onSendMessage, alertMessage, alertStyle, chat } = this.props;
 
     return (
       <div className="content">
 
         <AlertContainer
           message={alertMessage}
-          alertStyle={alertStyle}
-          onAlertDismiss={onAlertDismiss} />
+          alertStyle={alertStyle} />
 
         <MessageBox
           messages={messages}

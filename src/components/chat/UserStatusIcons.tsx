@@ -1,6 +1,6 @@
 import React from 'react';
-import FaCircle from 'react-icons/lib/fa/circle';
-import FaMinusCircle from 'react-icons/lib/fa/minus-circle';
+import {FaCircle} from 'react-icons/fa';
+import {FaMinusCircle} from 'react-icons/fa';
 
 export const ViewingUserIcon = () => <FaCircle style={styleViewing} />
 

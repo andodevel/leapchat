@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import { Alert } from 'react-bootstrap';
@@ -13,7 +12,7 @@ class AlertContainer extends Component {
   }
 
   render(){
-    let { message, alertStyle, onAlertDismiss } = this.props;
+    let { message, alertStyle } = this.props;
     if (alertStyles.indexOf(alertStyle) === -1){
       alertStyle = 'success';
     }
@@ -21,8 +20,8 @@ class AlertContainer extends Component {
     return (
       <div className="alert-container" ref="alert_container" style={{marginRight: '10px'}}>
         {message && <Alert
-          bsStyle={alertStyle}
-          onDismiss={onAlertDismiss}>
+          variant={alertStyle}
+          dismissible>
           {message}
         </Alert>}
       </div>
@@ -32,8 +31,7 @@ class AlertContainer extends Component {
 
 AlertContainer.propTypes = {
   message: PropTypes.string.isRequired,
-  alertStyle: PropTypes.string,
-  onAlertDismiss: PropTypes.func.isRequired
+  alertStyle: PropTypes.string
 }
 
 export default AlertContainer;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
-import FaArrowCircleRight from 'react-icons/lib/fa/arrow-circle-right';
-import FaSmileO from 'react-icons/lib/fa/smile-o';
+import { FaArrowCircleRight } from 'react-icons/fa';
+import {FaSmile} from 'react-icons/fa';
 import { Picker, emojiIndex } from 'emoji-mart';
 import { connect } from 'react-redux'
 import emoji from '../../constants/emoji';
@@ -160,7 +160,7 @@ class MessageForm extends Component {
 
           <div>
             <div className="chat-icons">
-              <FaSmileO size={24}
+              <FaSmile size={24}
                 className="emoji-picker-icon"
                 onClick={togglePicker}
               />

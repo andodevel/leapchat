@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "target": "es2016",
+        "resolveJsonModule": true
+    },
+    "include": ["src/decl/*.d.ts"]
+}

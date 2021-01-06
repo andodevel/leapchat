@@ -136,7 +136,6 @@ class App extends Component {
           <ChatContainer
             alertMessage={alertMessage}
             alertStyle={alertStyle}
-            onAlertDismiss={this.props.dismissAlert}
             messages={messages}
             username={username}
             onSendMessage={this.onSendMessage}
