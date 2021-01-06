@@ -24,21 +24,21 @@
     font-size: 15px;
   }
   li:hover {
-    background-color: rgba(35, 154, 220, .5);
+    background-color: rgba(35, 154, 220, 0.5);
   }
   .active {
-    background-color: rgba(35, 154, 220, .5);
+    background-color: rgba(35, 154, 220, 0.5);
   }
   ::-webkit-scrollbar-track {
-    background-color: rgba(128, 128, 128, .5);
+    background-color: rgba(128, 128, 128, 0.5);
   }
 }
 .suggestions-header {
   border-bottom: 1px solid #ccc;
   padding: 5px 10px 4px;
-  color: #7F7F83;
+  color: #7f7f83;
   font-size: 14px;
-  background: #FaF8F6;
+  background: #faf8f6;
   overflow: hidden;
 }
 .header-help {
@@ -53,6 +53,6 @@
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, .5);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }

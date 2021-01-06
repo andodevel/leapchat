@@ -1,6 +1,4 @@
-import { combineEpics } from 'redux-observable';
-import chatEpics from './chatEpics';
+import { combineEpics } from "redux-observable";
+import chatEpics from "./chatEpics";
 
-export default combineEpics(
-  chatEpics
-);
+export default combineEpics(chatEpics);

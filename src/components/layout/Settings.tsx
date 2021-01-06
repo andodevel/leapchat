@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {FaCog} from 'react-icons/fa';
+import React, { Component } from "react";
+import { FaCog } from "react-icons/fa";
 
 export default class Settings extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class Settings extends Component {
 
   render() {
     return (
-      <div className="settings" >
+      <div className="settings">
         <FaCog size={30} onClick={this.onClickSettings} />
       </div>
     );

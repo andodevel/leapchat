@@ -2,14 +2,9 @@ const webpack = require("webpack");
 const config = require("./webpack.config.base");
 const path = require("path");
 
+config.mode = "development";
+
 config.entry = path.resolve(__dirname + "/src/index.tsx");
-
-config.watch = true;
-
-config.watchOptions = {
-  aggregateTimeout: 300,
-  poll: 1000,
-};
 
 config.module.rules = [
   ...config.module.rules,
@@ -21,7 +16,7 @@ config.module.rules = [
       },
       {
         loader:
-          "css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]",
+          "css-loader",
       },
     ],
   },
@@ -33,16 +28,25 @@ config.module.rules = [
       },
       {
         loader:
-          "css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]",
+          "css-loader",
       },
       {
-        loader: "sass-loader?sourceMap",
+        loader: "sass-loader",
       },
     ],
   },
 ];
 
-config.devtool = "source-map";
+config.watch = true;
+
+config.watchOptions = {
+  aggregateTimeout: 300,
+  poll: 1000,
+  ignored: ["node_modules/**"],
+};
+
+config.devtool = "inline-source-map";
+
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
 
 module.exports = config;

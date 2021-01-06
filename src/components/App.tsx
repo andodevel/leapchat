@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   sendMessage,
   setUsername,
   initConnection,
-  initChat
-} from '../actions/chatActions';
+  initChat,
+} from "../actions/chatActions";
+
+import { dismissAlert } from "../actions/alertActions";
+
+import Header from "./layout/Header";
+
+import ChatContainer from "./chat/ChatContainer";
+
+import { tagByPrefixStripped } from "../utils/tags";
+
+import UsernameModal from "./modals/Username";
+import InfoModal from "./modals/InfoModal";
+import PincodeModal from "./modals/PincodeModal";
 
 import {
-  dismissAlert
-} from '../actions/alertActions';
-
-import Header from './layout/Header';
-
-import ChatContainer from './chat/ChatContainer';
-
-import { tagByPrefixStripped } from '../utils/tags';
-
-import UsernameModal from './modals/Username';
-import InfoModal from './modals/InfoModal';
-import PincodeModal from './modals/PincodeModal';
-
-import {
-  SERVER_ERROR_PREFIX, AUTH_ERROR, ON_CLOSE_RECONNECT_MESSAGE,
-  USER_STATUS_DELAY_MS
-} from '../constants/messaging';
+  SERVER_ERROR_PREFIX,
+  AUTH_ERROR,
+  ON_CLOSE_RECONNECT_MESSAGE,
+  USER_STATUS_DELAY_MS,
+} from "../constants/messaging";
 
 class App extends Component {
   constructor(props) {
@@ -34,7 +34,6 @@ class App extends Component {
       showUsernameModal: false,
       showInfoModal: false,
     };
-
   }
 
   componentDidMount() {
@@ -54,48 +53,47 @@ class App extends Component {
 
   handleShowSettings = () => {
     this.setState({
-      showUsernameModal: true
+      showUsernameModal: true,
     });
-  }
-
+  };
 
   onClosePincodeModal = () => {
     this.setState({
-      showPincodeModal: false
+      showPincodeModal: false,
     });
-  }
+  };
 
   onSetPincode = (pincode = "") => {
     if (!pincode || pincode.endsWith("--")) {
-      this.onError('Invalid pincode!');
+      this.onError("Invalid pincode!");
       return;
     }
     this.props.initConnection(pincode);
-  }
+  };
 
   onCloseUsernameModal = () => {
     this.setState({
-      showUsernameModal: false
+      showUsernameModal: false,
     });
-  }
+  };
 
   handleSetUsername = (username) => {
     this.setState({
-      showUsernameModal: false
+      showUsernameModal: false,
     });
     this.props.setUsername(username);
-  }
+  };
 
   toggleInfoModal = () => {
     this.setState((prevState) => {
-      return { showInfoModal: !prevState.showInfoModal }
-    })
-  }
+      return { showInfoModal: !prevState.showInfoModal };
+    });
+  };
 
   onSendMessage = (message) => {
     const { username } = this.props;
     this.props.sendMessage({ message, username });
-  }
+  };
 
   render() {
     const { showInfoModal, showUsernameModal } = this.state;
@@ -106,32 +104,40 @@ class App extends Component {
       alertStyle,
       statuses,
       pincodeRequired,
-      previousUsername } = this.props;
+      previousUsername,
+    } = this.props;
 
-    const displaySettings = !pincodeRequired && (showUsernameModal || username === '');
-    const chatInputFocus = !pincodeRequired && !showUsernameModal && username !== '';
+    const displaySettings =
+      !pincodeRequired && (showUsernameModal || username === "");
+    const chatInputFocus =
+      !pincodeRequired && !showUsernameModal && username !== "";
 
     return (
       <div id="page">
-
         <Header
           statuses={statuses}
           showSettings={this.handleShowSettings}
-          toggleInfoModal={this.toggleInfoModal} />
+          toggleInfoModal={this.toggleInfoModal}
+        />
 
         <main className="encloser">
+          {pincodeRequired && (
+            <PincodeModal
+              showModal={pincodeRequired}
+              onSetPincode={this.onSetPincode}
+              onCloseModal={this.onClosePincodeModal}
+            />
+          )}
 
-          {pincodeRequired && <PincodeModal
-            showModal={pincodeRequired}
-            onSetPincode={this.onSetPincode}
-            onCloseModal={this.onClosePincodeModal} />}
-
-          {displaySettings && <UsernameModal
-            previousUsername={previousUsername}
-            username={username}
-            showModal={displaySettings}
-            onSetUsername={this.handleSetUsername}
-            onCloseModal={this.onCloseUsernameModal} />}
+          {displaySettings && (
+            <UsernameModal
+              previousUsername={previousUsername}
+              username={username}
+              showModal={displaySettings}
+              onSetUsername={this.handleSetUsername}
+              onCloseModal={this.onCloseUsernameModal}
+            />
+          )}
 
           <ChatContainer
             alertMessage={alertMessage}
@@ -139,19 +145,20 @@ class App extends Component {
             messages={messages}
             username={username}
             onSendMessage={this.onSendMessage}
-            messageInputFocus={chatInputFocus} />
+            messageInputFocus={chatInputFocus}
+          />
 
           <InfoModal
             showModal={showInfoModal}
-            toggleInfoModal={this.toggleInfoModal} />
-
+            toggleInfoModal={this.toggleInfoModal}
+          />
         </main>
       </div>
     );
   }
 }
 
-App.propTypes = {}
+App.propTypes = {};
 
 const mapStateToProps = (reduxState) => {
   return { ...reduxState.chat, ...reduxState.alert };
@@ -159,12 +166,13 @@ const mapStateToProps = (reduxState) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendMessage: ({ message, username }) => dispatch(sendMessage({ message, username })),
+    sendMessage: ({ message, username }) =>
+      dispatch(sendMessage({ message, username })),
     initChat: () => dispatch(initChat()),
     initConnection: (pincode) => dispatch(initConnection(pincode)),
     initApplication: () => dispatch(initApplication()),
     setUsername: (username) => dispatch(setUsername(username)),
-    dismissAlert: () => dispatch(dismissAlert())
+    dismissAlert: () => dispatch(dismissAlert()),
   };
 };
 

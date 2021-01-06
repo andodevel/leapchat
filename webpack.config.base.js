@@ -1,15 +1,11 @@
 const path = require("path");
-const webpack = require("webpack");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const env = require("node-env-file");
 const emoji = require("./src/constants/emoji");
 
 const outputFolder = "build";
-
-env(path.resolve(__dirname + "/.env"));
 
 module.exports = {
   context: __dirname,
@@ -20,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
+        test: /\.(js|ts|tsx)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -35,7 +31,7 @@ module.exports = {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: [
           {
-            loader: "file-loader?name=[name].[ext]",
+            loader: "file-loader",
           },
         ],
       },
@@ -43,14 +39,14 @@ module.exports = {
         test: /\.mp3$/,
         use: [
           {
-            loader: "file-loader?name=[name].[ext]",
+            loader: "file-loader",
           },
         ],
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", "ts", "tsx", ".css", ".scss", ".json"],
+    extensions: [".js", "ts", "tsx", ".css", ".scss", ".json"],
     modules: ["node_modules"],
   },
   plugins: [

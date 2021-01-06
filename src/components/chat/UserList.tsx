@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {FaGroup} from 'react-icons/fa';
-import {FaCircle} from 'react-icons/fa';
-import {FaMinusCircle} from 'react-icons/fa';
-import $ from 'jquery';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { FaGroup } from "react-icons/fa";
+import { FaCircle } from "react-icons/fa";
+import { FaMinusCircle } from "react-icons/fa";
+import $ from "jquery";
 import {
   ViewingUserIcon,
   OnlineUserIcon,
-  OfflineUserIcon
-} from './UserStatusIcons'
+  OfflineUserIcon,
+} from "./UserStatusIcons";
 
 class UserList extends Component {
   constructor(props) {
@@ -17,11 +17,11 @@ class UserList extends Component {
 
   styleUserList = () => {
     if (this.props.displayUserList) {
-      return { display: 'block' };
+      return { display: "block" };
     } else {
-      return { display: 'none' };
+      return { display: "none" };
     }
-  }
+  };
 
   sortByFrom(username1, username2) {
     return username1.toLowerCase().localeCompare(username2.toLowerCase());
@@ -30,20 +30,20 @@ class UserList extends Component {
   render() {
     const { statuses } = this.props;
 
-    const viewing = [];  // green
-    const online = [];   // yellow
-    const offline = [];  // gray
+    const viewing = []; // green
+    const online = []; // yellow
+    const offline = []; // gray
 
-    Object.keys(statuses).forEach(username => {
+    Object.keys(statuses).forEach((username) => {
       const status = statuses[username];
       switch (status) {
-        case 'viewing':
+        case "viewing":
           viewing.push(username);
           break;
-        case 'online':
+        case "online":
           online.push(username);
           break;
-        case 'offline':
+        case "offline":
           offline.push(username);
           break;
       }
@@ -62,7 +62,7 @@ class UserList extends Component {
                 <ViewingUserIcon />
                 {username}
               </li>
-            )
+            );
           })}
 
           {online.map((username, i) => {
@@ -71,7 +71,7 @@ class UserList extends Component {
                 <OnlineUserIcon />
                 {username}
               </li>
-            )
+            );
           })}
 
           {offline.map((username, i) => {
@@ -80,7 +80,7 @@ class UserList extends Component {
                 <OfflineUserIcon />
                 {username}
               </li>
-            )
+            );
           })}
         </ul>
       </div>

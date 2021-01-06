@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Button } from 'react-bootstrap';
-import { FaArrowCircleRight } from 'react-icons/fa';
-import {FaSmile} from 'react-icons/fa';
-import { Picker, emojiIndex } from 'emoji-mart';
-import { connect } from 'react-redux'
-import emoji from '../../constants/emoji';
-import { emojiSuggestions, mentionSuggestions } from '../../utils/suggestions';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { Button } from "react-bootstrap";
+import { FaArrowCircleRight } from "react-icons/fa";
+import { FaSmile } from "react-icons/fa";
+import { Picker, emojiIndex } from "emoji-mart";
+import { connect } from "react-redux";
+import emoji from "../../constants/emoji";
+import { emojiSuggestions, mentionSuggestions } from "../../utils/suggestions";
 import {
   messageUpdate,
   clearMessage,
@@ -17,10 +17,10 @@ import {
   stopSuggestions,
   downSuggestion,
   upSuggestion,
-  addSuggestion
-} from '../../actions/chatActions';
+  addSuggestion,
+} from "../../actions/chatActions";
 
-import { chatHandler } from '../../epics/chatEpics';
+import { chatHandler } from "../../epics/chatEpics";
 
 class MessageForm extends Component {
   constructor(props) {
@@ -43,9 +43,14 @@ class MessageForm extends Component {
 
   onKeyPress = (e) => {
     const cursorIndex = this.messageInput.selectionStart;
-    const { suggestionStart, suggestions, highlightedSuggestion, statuses} = this.props.chat;
+    const {
+      suggestionStart,
+      suggestions,
+      highlightedSuggestion,
+      statuses,
+    } = this.props.chat;
     // Send on <enter> unless <shift-enter> has been pressed
-    if (e.key === 'Enter' && !e.nativeEvent.shiftKey) {
+    if (e.key === "Enter" && !e.nativeEvent.shiftKey) {
       if (suggestions.length > 0) {
         const selected = suggestions[highlightedSuggestion];
         e.preventDefault();
@@ -54,30 +59,29 @@ class MessageForm extends Component {
       this.onSendMessage(e);
       this.props.closePicker();
     }
-    if (e.key === ':' && suggestionStart === null) {
+    if (e.key === ":" && suggestionStart === null) {
       this.props.startSuggestions(cursorIndex, emojiSuggestions);
     }
-    if (e.key === '@' && suggestionStart === null) {
+    if (e.key === "@" && suggestionStart === null) {
       this.props.startSuggestions(cursorIndex, mentionSuggestions, statuses);
     }
-    if(e.nativeEvent.code === 'Space' && suggestionStart !== null) {
+    if (e.nativeEvent.code === "Space" && suggestionStart !== null) {
       this.props.stopSuggestions();
     }
-  }
+  };
 
   onKeyDown = (e) => {
     const { message, suggestionWord, statuses } = this.props.chat;
     const cursorIndex = this.messageInput.selectionStart;
     const before = message.slice(0, cursorIndex - 1);
     const word = suggestionWord;
-    const filterSuggestions = word[0] === '@'
-      ? mentionSuggestions
-      : emojiSuggestions;
-    if (e.key === 'Backspace' && before.endsWith(word) && word) {
+    const filterSuggestions =
+      word[0] === "@" ? mentionSuggestions : emojiSuggestions;
+    if (e.key === "Backspace" && before.endsWith(word) && word) {
       const start = before.length - word.length;
       this.props.startSuggestions(start, filterSuggestions, statuses);
     }
-  }
+  };
 
   isPayloadValid(message) {
     if (message && message.length > 0) {
@@ -97,46 +101,55 @@ class MessageForm extends Component {
 
     this.props.onSendMessage(message);
     this.props.clearMessage();
-  }
+  };
 
   backgroundImageFn = (set, sheetSize) => {
-    if (set !== 'apple' || sheetSize !== 64) {
-      console.log('WARNING: using set "apple" and sheetSize 64 rather than',
-                  set, 'and', sheetSize, 'as was requested');
+    if (set !== "apple" || sheetSize !== 64) {
+      console.log(
+        'WARNING: using set "apple" and sheetSize 64 rather than',
+        set,
+        "and",
+        sheetSize,
+        "as was requested"
+      );
     }
-    return '/' + emoji.EMOJI_APPLE_64_SHEET;
-  }
+    return "/" + emoji.EMOJI_APPLE_64_SHEET;
+  };
 
   addEmoji = (emoji) => {
     const cursorIndex = this.messageInput.selectionStart;
     this.props.addEmoji(emoji.colons, cursorIndex);
-  }
+  };
 
   handleKeyDown = (e) => {
     const { suggestions, suggestionStart } = this.props.chat;
     const cursorIndex = this.messageInput.selectionStart;
-    if (e.key === 'Backspace' && cursorIndex - suggestionStart === 1) {
+    if (e.key === "Backspace" && cursorIndex - suggestionStart === 1) {
       this.props.stopSuggestions();
     }
-    if (e.key === 'ArrowUp' && suggestions.length > 0) {
+    if (e.key === "ArrowUp" && suggestions.length > 0) {
       e.preventDefault();
       this.props.upSuggestion();
     }
-    if (e.key === 'ArrowDown' && suggestions.length > 0) {
+    if (e.key === "ArrowDown" && suggestions.length > 0) {
       e.preventDefault();
       this.props.downSuggestion();
     }
-  }
+  };
 
   setMessageInput = (input) => {
     this.messageInput = input;
-  }
+  };
 
   onDeleteAllMsgs = (e) => {
-    if (window.confirm("Are you sure you want to delete every existing chat message from this chat room?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete every existing chat message from this chat room?"
+      )
+    ) {
       chatHandler.sendDeleteAllMessagesSignalToServer();
     }
-  }
+  };
 
   render() {
     const { message, showEmojiPicker } = this.props.chat;
@@ -145,29 +158,33 @@ class MessageForm extends Component {
     return (
       <div className="message-form">
         <form role="form" className="form" onSubmit={this.onSendMessage}>
-          {showEmojiPicker && <Picker
-            emojiSize={24}
-            perLine={9}
-            skin={1}
-            set={'apple'}
-            autoFocus={false}
-            include={[]}
-            exclude={['nature', 'places', 'flags']}
-            emoji={""}
-            title={"LeapChat"}
-            backgroundImageFn={this.backgroundImageFn}
-            onClick={this.addEmoji} />}
+          {showEmojiPicker && (
+            <Picker
+              emojiSize={24}
+              perLine={9}
+              skin={1}
+              set={"apple"}
+              autoFocus={false}
+              include={[]}
+              exclude={["nature", "places", "flags"]}
+              emoji={""}
+              title={"LeapChat"}
+              backgroundImageFn={this.backgroundImageFn}
+              onClick={this.addEmoji}
+            />
+          )}
 
           <div>
             <div className="chat-icons">
-              <FaSmile size={24}
+              <FaSmile
+                size={24}
                 className="emoji-picker-icon"
                 onClick={togglePicker}
               />
 
               <div className="right-chat-icons">
                 <button
-                  style={{height: '100%', padding: '0 8px 0 10px'}}
+                  style={{ height: "100%", padding: "0 8px 0 10px" }}
                   className="delete-all-msgs"
                   onClick={this.onDeleteAllMsgs}
                 >
@@ -185,21 +202,20 @@ class MessageForm extends Component {
                 name="message"
                 value={message}
                 ref={this.setMessageInput}
-                placeholder="Enter message">
-              </textarea>
+                placeholder="Enter message"
+              ></textarea>
               <Button onClick={this.onSendMessage}>
                 <FaArrowCircleRight size={30} />
               </Button>
             </div>
           </div>
-
         </form>
       </div>
     );
   }
 }
 
-export default connect(({ chat }) => ({chat}), {
+export default connect(({ chat }) => ({ chat }), {
   messageUpdate,
   clearMessage,
   togglePicker,
@@ -209,5 +225,5 @@ export default connect(({ chat }) => ({chat}), {
   stopSuggestions,
   downSuggestion,
   upSuggestion,
-  addSuggestion
+  addSuggestion,
 })(MessageForm);

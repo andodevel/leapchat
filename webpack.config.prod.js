@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const config = require("./webpack.config.base");
 const path = require("path");
 
+config.mode = "production";
+
 config.entry = {
   main: path.resolve(__dirname + "/src/index.tsx"),
 };
@@ -16,7 +18,7 @@ config.module.rules = [
       },
       {
         loader:
-          "css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]",
+          "css-loader",
       },
     ],
   },
@@ -29,10 +31,10 @@ config.module.rules = [
       },
       {
         loader:
-          "css-loader?sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]",
+          "css-loader",
       },
       {
-        loader: "sass-loader?sourceMap",
+        loader: "sass-loader",
       },
     ],
   },

@@ -1,18 +1,17 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from "react-bootstrap";
 
-import { genPassphrase } from '../../data/minishare';
+import { genPassphrase } from "../../data/minishare";
 
 class PincodeModal extends PureComponent {
- 
   componentDidMount() {
     this.pincodeInput.focus();
   }
-  
-  componentDidUpdate(){
-    if(this.props.showModal){
+
+  componentDidUpdate() {
+    if (this.props.showModal) {
       this.pincodeInput.focus();
     }
   }
@@ -21,7 +20,7 @@ class PincodeModal extends PureComponent {
     if (e.which === 13) {
       this.onSetPincodeClick();
     }
-  }
+  };
 
   isPincodeValid(pincode) {
     if (!pincode || pincode.endsWith("--")) {
@@ -34,18 +33,18 @@ class PincodeModal extends PureComponent {
     const pincode = this.pincodeInput.value;
 
     if (!this.isPincodeValid(pincode)) {
-      alert('Invalid pincode!');
+      alert("Invalid pincode!");
     } else {
       this.props.onSetPincode(pincode);
     }
-  }
+  };
 
   setRandomPincodeInForm = () => {
     this.pincodeInput.value = genPassphrase(2);
-  }
+  };
 
   render() {
-    let { showModal, pincode, onCloseModal } = this.props;
+    const { showModal, pincode, onCloseModal } = this.props;
 
     return (
       <div>
@@ -55,21 +54,32 @@ class PincodeModal extends PureComponent {
           </Modal.Header>
           <Modal.Body>
             <div className="form-group">
-              <input 
-                type="text" 
-                className="form-control" 
-                ref={(input) => { this.pincodeInput = input; }}
-                defaultValue={pincode} 
-                placeholder="Enter pincode or password" 
-                onKeyPress={this.onPincodeKeyPress} 
-                autoFocus={true} />
+              <input
+                type="text"
+                className="form-control"
+                ref={(input) => {
+                  this.pincodeInput = input;
+                }}
+                defaultValue={pincode}
+                placeholder="Enter pincode or password"
+                onKeyPress={this.onPincodeKeyPress}
+                autoFocus={true}
+              />
               <br />
-              <Button size="sm" variant="primary" onClick={this.setRandomPincodeInForm}>Generate Random Pincode</Button>
+              <Button
+                size="sm"
+                variant="primary"
+                onClick={this.setRandomPincodeInForm}
+              >
+                Generate Random Pincode
+              </Button>
             </div>
           </Modal.Body>
           <Modal.Footer>
             {pincode && <Button onClick={onCloseModal}>Cancel</Button>}
-            <Button onClick={this.onSetPincodeClick} variant="primary">Set Pincode</Button>
+            <Button onClick={this.onSetPincodeClick} variant="primary">
+              Set Pincode
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -77,11 +87,10 @@ class PincodeModal extends PureComponent {
   }
 }
 
-
 PincodeModal.propType = {
   showModal: PropTypes.bool.isRequired,
   onCloseModal: PropTypes.func.isRequired,
-  onSetPincode: PropTypes.func.isRequired
-}
+  onSetPincode: PropTypes.func.isRequired,
+};
 
 export default PincodeModal;

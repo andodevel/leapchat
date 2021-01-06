@@ -1,21 +1,16 @@
-import {
-  ALERT_DISPLAY,
-  ALERT_DISMISS
-} from '../actions/alertActions';
-
+import { ALERT_DISPLAY, ALERT_DISMISS } from "../actions/alertActions";
 
 const initialState = {
-  alertMessage: '',
-  alertStyle: ''
+  alertMessage: "",
+  alertStyle: "",
 };
 
 function alertReducer(state = initialState, action) {
-
   switch (action.type) {
     case ALERT_DISPLAY:
       return {
         alertMessage: action.message,
-        alertStyle: action.style
+        alertStyle: action.style,
       };
 
     case ALERT_DISMISS:

@@ -1,3 +1,3 @@
-export function playNotification(){
-  document.getElementById('notification-audio').play();
+export function playNotification() {
+  document.getElementById("notification-audio").play();
 }
