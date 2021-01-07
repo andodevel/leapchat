@@ -4,3 +4,5 @@
 jest.config.js
 webpack.config.js
 dist/
+build/
+node_modules/

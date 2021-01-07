@@ -1,0 +1,1 @@
+exports.AUDIO_PATH = "static/audio/";

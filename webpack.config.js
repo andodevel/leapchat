@@ -1,30 +1,31 @@
-'use strict'
+"use strict";
 
 const path = require("path");
 const webpack = require("webpack");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
+const audio = require("./src/constants/audio");
 const emoji = require("./src/constants/emoji");
 
-const OUTPUT_FOLDER = "dist";
+const outputFolder = "dist";
 
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
+const isProductionEnv = process.env.NODE_ENV === "production";
 
 const config = {
-  mode: IS_PRODUCTION ? "production" : "development",
-  entry: path.resolve(__dirname + "/src/index.jsx"),
+  mode: isProductionEnv ? "production" : "development",
+  entry: path.resolve(__dirname + "/src/index.tsx"),
   context: __dirname,
   output: {
-    path: path.resolve(__dirname, OUTPUT_FOLDER),
-    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, outputFolder),
+    filename: "bundle.js",
   },
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader",
@@ -46,7 +47,7 @@ const config = {
         test: /\.s?css$/,
         use: [
           {
-            loader: IS_PRODUCTION
+            loader: isProductionEnv
               ? MiniCSSExtractPlugin.loader
               : "style-loader",
           },
@@ -59,7 +60,16 @@ const config = {
         ],
       },
       {
-        test: /\.(png|jpg|woff2?|ttf|otf|eot|svg|gif|mp3|wav)$/,
+        test: /\.(mp3|wav)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|svg|gif|woff2?|ttf|otf|eot)$/,
         use: [
           {
             loader: "file-loader",
@@ -78,12 +88,6 @@ if (process.env.NODE_ENV === "production") {
   config.devtool = "inline-source-map";
   config.plugins.push(new CleanWebpackPlugin());
   config.plugins.push(
-    new HtmlWebpackPlugin({
-      title: "LeapChat",
-      template: "src/index.ejs",
-    })
-  );
-  config.plugins.push(
     new MiniCSSExtractPlugin({
       filename: "bundle.css",
     })
@@ -91,6 +95,11 @@ if (process.env.NODE_ENV === "production") {
   config.plugins.push(
     new CopyWebpackPlugin({
       patterns: [
+        { from: "src/index.html", to: "index.html" },
+        {
+          from: "src/static/audio",
+          to: audio.AUDIO_PATH,
+        },
         {
           from: "node_modules/emoji-datasource-apple/img/apple/64",
           to: emoji.EMOJI_APPLE_64_PATH,
@@ -115,11 +124,8 @@ if (process.env.NODE_ENV === "production") {
     port: 8000,
     publicPath: "/",
     proxy: {
-      "/be": {
+      "/": {
         target: "http://localhost:8080",
-        pathRewrite: {
-          "^/be/api": "",
-        },
       },
     },
   };
