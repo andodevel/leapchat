@@ -19,7 +19,7 @@ const UsernameModal: FunctionComponent<UsernameModalProps> = ({
   onCloseModal,
   onSetUsername,
 }) => {
-  const [usernameInput, setUsernameInput] = useState("");
+  const [usernameInput, setUsernameInput] = useState(previousUsername || "");
   const [failMessage, setFailMessage] = useState("");
 
   const inputRef = useRef(null);
@@ -77,7 +77,6 @@ const UsernameModal: FunctionComponent<UsernameModalProps> = ({
               className="form-control"
               value={usernameInput}
               onChange={(e) => setUsernameInput(e.target.value)}
-              defaultValue={username || previousUsername}
               placeholder="Enter username (e.g., trinity)"
               onKeyPress={onUsernameKeyPress}
               autoFocus={true}

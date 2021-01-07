@@ -11,10 +11,10 @@ const emoji = require("./src/constants/emoji");
 
 const outputFolder = "build";
 
-const isProductionEnv = process.env.NODE_ENV === "production";
+const isProductionBuild = process.env.NODE_ENV === "production";
 
 const config = {
-  mode: isProductionEnv ? "production" : "development",
+  mode: isProductionBuild ? "production" : "development",
   entry: path.resolve(__dirname + "/src/index.tsx"),
   context: __dirname,
   output: {
@@ -27,7 +27,7 @@ const config = {
         test: /\.s?css$/,
         use: [
           {
-            loader: isProductionEnv
+            loader: isProductionBuild
               ? MiniCSSExtractPlugin.loader
               : "style-loader",
           },
@@ -84,10 +84,10 @@ const config = {
   plugins: [new webpack.EnvironmentPlugin(["NODE_ENV"])],
 };
 
-if (process.env.NODE_ENV === "production") {
+if (isProductionBuild) {
   config.devtool = "source-map";
   config.module.rules[0].use[0].options = {
-    hmr: !isProductionEnv,
+    hmr: false,
   };
   config.plugins.push(new CleanWebpackPlugin());
   config.plugins.push(
@@ -128,10 +128,8 @@ if (process.env.NODE_ENV === "production") {
     publicPath: "/",
     proxy: {
       "/api/": {
-        target: "http://localhost:8080",
-        // pathRewrite: {
-        //   "^/api": "",
-        // },
+        target: "ws://localhost:8080",
+        ws: true,
       },
     },
   };

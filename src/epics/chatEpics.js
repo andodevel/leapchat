@@ -3,8 +3,6 @@ import {
   CHAT_INIT_CONNECTION,
   CHAT_INIT_CHAT,
   CHAT_SEND_MESSAGE,
-  readyToConnect,
-  initConnection,
   connectionInitiated,
   disconnected,
   addMessage,
@@ -20,22 +18,11 @@ import { alertSuccess, alertWarning } from "../actions/alertActions";
 
 import { USER_STATUS_DELAY_MS, USERNAME_KEY } from "../constants/messaging";
 
-import {
-  getEmail,
-  getPassphrase,
-  generateMessageKey,
-} from "../utils/encrypter";
+import { getEmail, getPassphrase } from "../utils/encrypter";
 import ChatHandler from "./helpers/ChatHandler";
 import miniLock from "../utils/miniLock";
 import { combineEpics } from "redux-observable";
 import createDetectVisibilityObservable from "./helpers/createDetectPageVisibilityObservable";
-
-const authUrl = `${window.location.origin}/api/login`;
-const wsUrl = `${window.location.origin.replace(
-  "http",
-  "ws"
-)}/api/ws/messages/all`;
-export const chatHandler = new ChatHandler(wsUrl);
 
 import { Observable } from "rxjs/Observable";
 import { ajax } from "rxjs/observable/dom/ajax";
@@ -51,12 +38,21 @@ import "rxjs/add/operator/retry";
 import "rxjs/add/operator/pluck";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/retryWhen";
+import "rxjs/add/operator/take";
+import "rxjs/add/operator/concat";
 import "rxjs/add/observable/of";
 import "rxjs/add/observable/from";
 import "rxjs/add/observable/fromEvent";
 import "rxjs/add/observable/merge";
 import "rxjs/add/observable/if";
 import "rxjs/add/operator/takeUntil";
+
+const authUrl = `${window.location.origin}/api/login`;
+const wsUrl = `${window.location.origin.replace(
+  "http",
+  "ws"
+)}/api/ws/messages/all`;
+export const chatHandler = new ChatHandler(wsUrl);
 
 const messageEpic = (action$) =>
   action$
@@ -185,17 +181,24 @@ const initConnectionEpic = (action$) =>
       ]);
     });
 
-const setUsernameEpic = (action$, store) =>
+const setUsernameEpic = (action$, store$) =>
   action$
     .ofType(CHAT_SET_USERNAME)
-    .filter((action) => action.username && !store.getState().chat.paranoidMode)
+    .filter((action) => action.username && !store$.value.chat.paranoidMode)
     .mergeMap((action) =>
       Observable.of(action.username)
         .do((username) => {
           const ttl = USER_STATUS_DELAY_MS / 1000;
           chatHandler.sendUserStatus(username, "viewing", ttl);
         })
-        .retryWhen((error) => error.delay(500))
+        .retryWhen(
+          (errors) =>
+            errors
+              .delay(500)
+              .take(5)
+              // TODO: Make sure to throw final error!
+              .concat(Observable.throwError(new Error("Retry limit exceeded!")))
+        )
         .do(
           () =>
             localStorage && localStorage.setItem(USERNAME_KEY, action.username)
@@ -203,18 +206,18 @@ const setUsernameEpic = (action$, store) =>
     )
     .map((username) => usernameSet(username));
 
-const ownUserStatusEpic = (action$, store) =>
+const ownUserStatusEpic = (action$, store$) =>
   action$
     .ofType(CHAT_INIT_CHAT)
     .mergeMap(() =>
       createDetectVisibilityObservable()
         .throttleTime(USER_STATUS_DELAY_MS)
-        .filter(() => store.getState().chat.username)
+        .filter(() => store$.value.chat.username)
         .do((status) => {
           const ttl = USER_STATUS_DELAY_MS / 1000;
           const {
             chat: { username },
-          } = store.getState();
+          } = store$.value;
           chatHandler.sendUserStatus(username, status, ttl);
         })
         .map(() => userStatusSent())

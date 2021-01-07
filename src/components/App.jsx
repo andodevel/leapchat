@@ -171,7 +171,9 @@ const mapDispatchToProps = (dispatch) => {
     initChat: () => dispatch(initChat()),
     initConnection: (pincode) => dispatch(initConnection(pincode)),
     initApplication: () => dispatch(initApplication()),
-    setUsername: (username) => dispatch(setUsername(username)),
+    setUsername: (username) => {
+      dispatch(setUsername(username));
+    },
     dismissAlert: () => dispatch(dismissAlert()),
   };
 };
