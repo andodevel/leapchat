@@ -1,5 +1,4 @@
 export const ALERT_DISPLAY = "ALERT_DISPLAY";
-export const ALERT_DISMISS = "ALERT_DISMISS";
 
 export const alertSuccess = (message) => ({
   type: ALERT_DISPLAY,
@@ -19,4 +18,3 @@ export const alertDanger = (message) => ({
   message,
 });
 
-export const dismissAlert = () => ({ type: ALERT_DISMISS });

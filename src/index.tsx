@@ -18,16 +18,18 @@ import App from "./components/App";
 const composeEnhancers =
   (window && window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"]) || compose;
 const epicMiddleware = createEpicMiddleware();
-const enhancer = composeEnhancers(applyMiddleware(epicMiddleware));
 
-const store = createStore(rootReducer, enhancer);
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(epicMiddleware))
+);
 const epic$ = new BehaviorSubject(rootEpic);
 
 /* NOTE: Hot reload in DEV mode - potentially create strange bugs. */
-{ 
+{
   const hotReloadingEpic = (...args) =>
     // eslint-disable-next-line
-    epic$.pipe(switchMap((epic:  any) => epic(...args)));
+    epic$.pipe(switchMap((epic: any) => epic(...args)));
 
   // eslint-disable-next-line
   epicMiddleware.run(hotReloadingEpic as any);
