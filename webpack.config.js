@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const audio = require("./src/constants/audio");
 const emoji = require("./src/constants/emoji");
 
-const outputFolder = "dist";
+const outputFolder = "build";
 
 const isProductionEnv = process.env.NODE_ENV === "production";
 
@@ -23,6 +23,22 @@ const config = {
   },
   module: {
     rules: [
+      {
+        test: /\.s?css$/,
+        use: [
+          {
+            loader: isProductionEnv
+              ? MiniCSSExtractPlugin.loader
+              : "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "sass-loader",
+          },
+        ],
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -40,22 +56,6 @@ const config = {
           },
           {
             loader: "ts-loader",
-          },
-        ],
-      },
-      {
-        test: /\.s?css$/,
-        use: [
-          {
-            loader: isProductionEnv
-              ? MiniCSSExtractPlugin.loader
-              : "style-loader",
-          },
-          {
-            loader: "css-loader",
-          },
-          {
-            loader: "sass-loader",
           },
         ],
       },
@@ -85,7 +85,10 @@ const config = {
 };
 
 if (process.env.NODE_ENV === "production") {
-  config.devtool = "inline-source-map";
+  config.devtool = "source-map";
+  config.module.rules[0].use[0].options = {
+    hmr: !isProductionEnv,
+  };
   config.plugins.push(new CleanWebpackPlugin());
   config.plugins.push(
     new MiniCSSExtractPlugin({
@@ -124,8 +127,11 @@ if (process.env.NODE_ENV === "production") {
     port: 8000,
     publicPath: "/",
     proxy: {
-      "/": {
+      "/api/": {
         target: "http://localhost:8080",
+        // pathRewrite: {
+        //   "^/api": "",
+        // },
       },
     },
   };
