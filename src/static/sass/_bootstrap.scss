@@ -1,0 +1,52 @@
+.alert-container {
+  z-index: $zindex-notif;
+
+  .alert {
+    &.alert-dismissable {
+      .close {
+        right: auto;
+      }
+    }
+  }
+}
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      @include hover-box-shadow;
+      @include box-sizing;
+      margin: 5rem auto;
+
+      background-color: $color-bg-dialog;
+
+      .modal-header {
+        display: block;
+        border-bottom: none;
+
+        .close {
+          float: unset;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+      }
+
+      .modal-footer {
+        border-top: none;
+      }
+    }
+  }
+}
+
+.form-control {
+  font-size: $font-md;
+  border: $border-base;
+  border-radius: $border-radius-base;
+  box-shadow: none;
+
+  &:hover, &:active {
+    border: $border-base;
+    box-shadow: none;
+  }
+
+}

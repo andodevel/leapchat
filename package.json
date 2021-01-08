@@ -1,5 +1,5 @@
 {
-  "name": "LeapChat",
+  "name": "TiMess",
   "version": "0.9.0",
   "description": "Self-destructing, encrypted, in-browser chat",
   "main": "index.tsx",
@@ -7,8 +7,8 @@
     "lint": "eslint ./src/ --quiet --fix",
     "format": "prettier --write ./src/",
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "go build && ./leapchat",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server",
+    "server": "go build -o server && ./server",
+    "start": "cross-env NODE_ENV=development webpack-dev-server",
     "test": "node_modules/.bin/mocha --reporter nyan test/.setup.ts test/**/*.test.ts"
   },
   "lint-staged": {
@@ -45,7 +45,6 @@
     "bootstrap": "^4.5.3",
     "bs58": "^4.0.1",
     "btoa": "^1.2.1",
-    "classnames": "2.2.6",
     "emoji-datasource-apple": "^3.0.0",
     "emoji-js": "^3.5.0",
     "emoji-mart": "^1.0.1",

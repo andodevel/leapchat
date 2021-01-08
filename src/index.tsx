@@ -1,6 +1,3 @@
-import "normalize.css";
-import "bootstrap/dist/css/bootstrap.css";
-import "./static/sass/main.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -8,12 +5,13 @@ import { createStore, compose, applyMiddleware } from "redux";
 import { createEpicMiddleware } from "redux-observable";
 import { BehaviorSubject } from "rxjs";
 import { switchMap } from "rxjs/operators";
-import "./static/audio/notification_gertz.mp3";
-import "./utils/detect_browser";
-import "./utils/origin_polyfill";
 import rootReducer from "./reducers";
 import rootEpic from "./epics";
 import App from "./components/App";
+import "./static/sass/index.scss";
+import "./static/audio/notification_gertz.mp3";
+import "./utils/detect_browser";
+import "./utils/origin_polyfill";
 
 const composeEnhancers =
   (window && window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"]) || compose;

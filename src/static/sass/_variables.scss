@@ -1,1 +1,65 @@
-$base-color: #111;
+// Color (Gruvbox dark)
+$color-bg-base: #282828;
+$color-bg-dialog: #1d2021;
+$color-bg-notif: #1d2021;
+$color-bar-base: #1d2021;
+$color-fg-base: #d65d0e;
+$color-fg-base-hl: #fe8019;
+$color-text-base: #ebdbb2;
+$color-text-base-hl: #fbf1c7;
+$color-link: #458588;
+$color-link-hl: #83a598;
+$color-error: #cc241d;
+$color-error-hl: #fb4934;
+$color-user-viewing: #a89984;
+$color-user-online: #98971a;
+$color-user-offline: #d79921;
+
+// Media
+$media-desktop: 1024px;
+$media-tablet: 768px;
+$media-phone: 376px;
+
+// Font size
+$font-xs: 1.0rem;
+$font-sm: 1.2rem;
+$font-md: 1.5rem;
+$font-lg: 1.8rem;
+$font-xl: 2.0rem;
+$font-xxl: 3.0rem;
+$font-h1: 6.0rem;
+$font-h2: 4.0rem;
+$font-h3: 3.2rem;
+$font-h4: 2.4rem;
+$font-h5: 1.8rem;
+$font-h6: 1.4rem;
+
+// Font weight
+$font-light: 300;
+$font-normal: 400;
+$font-bold: 500;
+$font-bolder: 600;
+
+// z-index
+$zindex-bg: -9999;
+$zindex-base: 0;
+$zindex-header: 1;
+$zindex-footer: 1;
+$zindex-notif: 10;
+$zindex-emoji-picker: 100;
+$zindex-suggestion: 1000;
+$zindex-modal: 9999;
+
+// Space
+$line-header: 1.5;
+$line-base: 1.6;
+$outer-container-padding: 1.5rem 2rem 2.5rem 2rem;
+$container-padding: 1.5rem 1rem;
+$inline-margin-right: 1rem;
+$inline-margin-left: 1rem;
+
+// Misc
+$transition-base: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+$border-base: solid 1px $color-fg-base;
+$border-radius-base: 3px;
+

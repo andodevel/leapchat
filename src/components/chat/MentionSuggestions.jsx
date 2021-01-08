@@ -6,7 +6,7 @@ import {
   ViewingUserIcon,
   OnlineUserIcon,
   OfflineUserIcon,
-} from "./UserStatusIcons";
+} from "./userlist";
 const MentionSuggestions = ({ chat, addSuggestion }) => (
   <ul>
     {chat.suggestions.map((user, i) => {
@@ -16,7 +16,6 @@ const MentionSuggestions = ({ chat, addSuggestion }) => (
       const viewing = status === "viewing";
       const online = status === "online";
       const props = {
-        key: i,
         onClick: (e) => addSuggestion(mention),
         className: activeItem ? "active" : "",
       };
@@ -26,7 +25,7 @@ const MentionSuggestions = ({ chat, addSuggestion }) => (
         };
       }
       return (
-        <li {...props}>
+        <li {...props} key={i}>
           {viewing ? (
             <ViewingUserIcon />
           ) : online ? (

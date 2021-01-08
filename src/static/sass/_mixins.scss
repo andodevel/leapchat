@@ -1,0 +1,18 @@
+@mixin box-sizing {
+  padding: $container-padding;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0.2rem 0.4rem -0.3rem $color-fg-base;
+  transition: $transition-base;
+}
+
+@mixin hover-box-shadow {
+    @include box-shadow;
+
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: 0 0.5rem 1rem -0.5rem $color-fg-base-hl;
+    }
+}

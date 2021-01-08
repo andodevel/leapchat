@@ -1,6 +1,6 @@
-# LeapChat
+# TiMess
 
-LeapChat is an ephemeral chat application.  LeapChat uses
+TiMess is an ephemeral chat application.  TiMess uses
 [miniLock](https://minilock.io) for challenge/response-based
 authentication. This app also enables users to create chat rooms,
 invite others to said rooms (via a special URL with a passphrase at

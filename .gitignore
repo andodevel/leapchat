@@ -3,6 +3,7 @@ node_modules/
 build/
 dist/
 leapchat
+server
 
 # bower static assets
 static/lib/

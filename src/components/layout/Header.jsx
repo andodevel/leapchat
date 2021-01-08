@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import UserIcon from "../chat/UserIcon";
-import UserList from "../chat/UserList";
+import UserList, { ToggleUserListIcon} from "../chat/userlist";
 import Logo from "./Logo";
 import Settings from "./Settings";
 import Info from "./Info";
@@ -22,18 +21,20 @@ class Header extends Component {
     const { closePicker, toggleInfoModal, showSettings, statuses } = this.props;
     return (
       <header onClick={closePicker}>
-        <div className="logo-container">
-          <div id="logo-info">
+        <div className="header__bar">
+          <ToggleUserListIcon toggleUserList={this.toggleUserList} />
+          <div className="header__logo-info">
             <Logo />
             <Info toggleInfoModal={toggleInfoModal} />
           </div>
           <Settings showSettings={showSettings} />
         </div>
-        <UserIcon toggleUserList={this.toggleUserList} />
-        <UserList
-          statuses={statuses}
-          displayUserList={this.state.displayUserList}
-        />
+        <div className="header__content">
+          <UserList
+            statuses={statuses}
+            displayUserList={this.state.displayUserList}
+          />
+        </div>
       </header>
     );
   }

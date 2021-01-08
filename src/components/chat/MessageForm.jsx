@@ -168,7 +168,7 @@ class MessageForm extends Component {
               include={[]}
               exclude={["nature", "places", "flags"]}
               emoji={""}
-              title={"LeapChat"}
+              title={"TiMess"}
               backgroundImageFn={this.backgroundImageFn}
               onClick={this.addEmoji}
             />

@@ -31,10 +31,10 @@ func main() {
 		"Address to listen on HTTPS")
 	domain := flag.String("domain", "", "Domain of this service")
 	iframeOrigin := flag.String("iframe-origin", "",
-		"Origin that may embed this LeapChat instance into an iframe."+
+		"Origin that may embed this TiMess instance into an iframe."+
 			" May include port. Only used with -prod flag.")
 	prod := flag.Bool("prod", false, "Run in Production mode.")
-	onionPush := flag.Bool("onionpush", false, "Serve OnionPush instead of LeapChat")
+	onionPush := flag.Bool("onionpush", false, "Serve OnionPush instead of TiMess")
 	flag.Parse()
 
 	if *onionPush {

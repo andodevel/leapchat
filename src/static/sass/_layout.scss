@@ -1,39 +1,17 @@
-html,
-body,
-ul {
-  padding: 0;
-  margin: 0;
-}
+#page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 
-body {
-  color: #222;
-  font-size: 16px;
-  font-family: "Roboto Mono", sans-serif;
-}
-
-// Desktop - Max height & width
-@media (min-width: 768px) {
-  #page {
-    display: flex;
-    flex-direction: row;
-    max-width: 100vw;
-    max-height: 100vh;
+  main {
+    flex: 1;
   }
 }
 
-// Mobile - Max & min height
-@media (max-width: 767px) {
+@media (min-width: $media-desktop) {
   #page {
-    display: flex;
-    flex-direction: column;
-    max-height: 100vh;
-    min-height: 100vh;
-    header {
-      flex: 1;
-    }
-    main {
-      flex: 1;
-    }
+    flex-direction: row;
   }
 }
 
@@ -42,126 +20,99 @@ body {
   flex-direction: row;
 }
 
-@media (max-width: 768px) {
+@media (min-width: $media-desktop) {
   .encloser {
     flex-direction: column;
   }
 }
 
-// HEADER - mobile settings
 header {
+  padding: $outer-container-padding;
+  z-index: $zindex-header;
   display: flex;
-  background-color: $base-color;
-  color: #fff;
-  padding: 10px 10px 5px;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  min-height: fit-content;
+  background-color: $color-bar-base;
+  flex-direction: column;
 
-  .users-icon {
+  .header__bar {
     order: -1;
-    flex-grow: 1;
-    svg {
-      cursor: pointer;
-    }
-  }
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    align-items: center;
 
-  .users-list {
-    flex: 0 1 100%;
+    .header__logo-info {
+      display: inline-flex;
 
-    ul {
-      display: none;
-      list-style-type: none;
-      li {
+      .info {
+        padding-left: 1rem;
+
         svg {
-          float: left;
+          vertical-align: top;
+          cursor: pointer;
         }
       }
     }
   }
 
-  .logo-container {
+  .header__content {
     display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-  }
-
-  .logo {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .settings {
+    flex-direction: row;
+    max-height: 15vh;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
-// HEADER - desktop settings
-@media (min-width: 768px) {
+.logo {
+  text-align: center;
+  font-size: $font-xxl;
+  font-weight: $font-bold;
+}
+
+.settings {
+  svg {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: $media-desktop) {
   header {
-    flex: 1;
+    flex: 0 20%;
     display: inline-flex;
-    max-width: 306px;
     flex-direction: column;
     justify-content: start;
     height: 100vh;
 
-    .logo-container {
-      margin-bottom: 15px;
-      order: -1;
-      flex-grow: 0;
-    }
-
-    .settings {
-      float: right;
-      margin-left: auto;
-      cursor: pointer;
-    }
-
-    .info {
-      float: left;
-    }
-
-    .users-icon {
-      display: none;
-    }
-
-    .users-list {
-      flex-grow: 0;
-      flex: none;
-
-      ul {
-        display: block !important;
-        li {
-          margin-bottom: 1px;
-          word-wrap: break-word;
-          svg {
-            float: left;
-            margin-top: 0.2em;
-          }
-        }
+    .header-bar {
+      .info {
+        float: left;
       }
     }
+
+    .header__content {
+      flex-direction: column;
+      max-height: initial;
+    }
   }
-  .modal-header {
-    border-bottom: none;
+
+  .settings {
+    float: right;
+    margin-left: auto;
+    cursor: pointer;
   }
+
   .message {
     display: flex;
     flex-direction: row;
   }
-  .form-control {
-    flex-grow: 2;
-    border: none;
-  }
+  
   .emoji-picker-icon {
     cursor: pointer;
   }
 }
 
-// MAIN - mobile settings
 main {
+  padding: $outer-container-padding;
   display: flex;
   flex-grow: 1;
   max-width: 100vw;
@@ -173,13 +124,7 @@ main {
     position: relative;
 
     .message-box {
-      // scroll with flexbox needs revisiting
-      // for now, message box is viewport height
-      // less display height of message form
-      // + display height of header
-      height: calc(100vh - 120px);
       overflow-y: scroll;
-      padding-top: 5px;
 
       ul {
         li.chat-message {
@@ -198,17 +143,7 @@ main {
 
           &.chat-outgoing {
             float: right;
-            color: white;
-            background-color: #663399;
-
-            a {
-              text-decoration: underline;
-              color: white;
-            }
-
-            a:hover {
-              color: #ddd;
-            }
+            color: #458588;
           }
 
           &.chat-incoming {
@@ -237,19 +172,10 @@ main {
     }
 
     .message-form {
-      padding: 5px;
-      background-color: white;
-      border-top: solid 1px #ccc;
       margin-top: auto;
 
       .message {
         display: flex;
-
-        textarea {
-          /* this font-size disables zooming
-          on mobile safari, which breaks layout */
-          font-size: 16px;
-        }
       }
 
       button {
@@ -264,67 +190,18 @@ main {
         }
       }
     }
-  } // end .content
-} // end main
+  }
+}
 
-// MAIN - desktop settings
-@media (min-width: 768px) {
+@media (min-width: $media-desktop) {
   main {
     display: inline-flex;
-    flex: 1;
     flex-direction: row;
     justify-content: start;
-    height: 100vh;
-    width: 50vw !important;
 
     .content {
       max-width: 100%;
-      .message-box {
-        // scroll with flexbox needs revisiting
-        // for now, message box is viewport height
-        // less display height of message form
-        height: calc(100vh - 70px);
-      }
     }
-  }
-}
-
-// Alert styles, overrides default bootstrap
-// styles for positioning
-.alert-container {
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  right: 10px;
-  font-size: 14px;
-  z-index: 10;
-
-  .alert {
-
-    &.alert-dismissable {
-      .close {
-        right: auto;
-      }
-    }
-  }
-}
-
-// Info Positioning relative to Logo
-#logo-info {
-  display: inherit;
-  .info {
-    padding-left: 15px;
-    svg {
-      vertical-align: top;
-      cursor: pointer;
-    }
-  }
-}
-
-// Cursor effect over Settings button
-.settings {
-  svg {
-    cursor: pointer;
   }
 }
 
@@ -342,18 +219,21 @@ textarea {
   margin-bottom: 5px;
   width: 100%;
 }
+
 .chat-icons .right-chat-icons {
   display: flex;
   flex-direction: row;
   height: 100%;
   margin-left: auto;
 }
+
 .right-chat-icons .delete-all-msgs {
   display: flex;
   flex-direction: row;
   background-color: #c00;
   color: white;
 }
+
 .delete-all-msgs:hover {
   background-color: #e00;
 }

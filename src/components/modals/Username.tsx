@@ -67,7 +67,7 @@ const UsernameModal: FunctionComponent<UsernameModalProps> = ({
     <div>
       <Modal show={showModal} onHide={onCloseModal}>
         <Modal.Header>
-          <Modal.Title>Set Username</Modal.Title>
+          <h4>Set Username</h4>
         </Modal.Header>
         <Modal.Body>
           <div className="form-group">
@@ -91,17 +91,17 @@ const UsernameModal: FunctionComponent<UsernameModalProps> = ({
               {failMessage}
             </div>
             <Button
-              size="sm"
+              size="lg"
               variant="primary"
               onClick={setRandomUsernameInForm}
             >
-              Generate Random Username
+              Random Username
             </Button>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          {username && <Button onClick={onCloseModal}>Cancel</Button>}
-          <Button onClick={onSetUsernameClick} variant="primary">
+          {username && <Button size="lg" variant="danger" onClick={onCloseModal}>Cancel</Button>}
+          <Button size="lg" onClick={onSetUsernameClick} variant="primary">
             Set Username
           </Button>
         </Modal.Footer>

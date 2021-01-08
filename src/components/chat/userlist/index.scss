@@ -1,0 +1,64 @@
+@import "../../../static/sass/_variables.scss";
+
+.userlist__user_viewing {
+  color: $color-user-viewing;
+}
+
+.userlist__user_online {
+  color: $color-user-online;
+}
+
+.userlist__user_offline {
+  color: $color-user-offline;
+}
+
+.header__toogle-userlist-icon {
+  order: -1;
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.userlist {
+  ul {
+    display: none;
+    padding-left: 1rem;
+    list-style-type: none;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 0.8rem;
+
+      svg {
+        float: left;
+      }
+
+      label {
+        margin-left: $inline-margin-left;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: $media-desktop) {
+  .header__toogle-userlist-icon {
+    display: none;
+  }
+
+  .userlist {
+    ul {
+      display: block;
+      li {
+        word-wrap: break-word;
+        svg {
+          float: left;
+          margin-top: 0.2em;
+        }
+      }
+    }
+  }
+}

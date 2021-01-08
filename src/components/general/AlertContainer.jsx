@@ -20,7 +20,6 @@ class AlertContainer extends Component {
     return (
       <div
         className="alert-container"
-        style={{ marginRight: "10px" }}
       >
         {message && (
           <Alert variant={alertStyle} dismissible>
