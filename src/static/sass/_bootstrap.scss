@@ -1,3 +1,7 @@
+@function theme-color($key: "primary") {
+  @return map-get($theme-colors, "danger");
+}
+
 .alert-container {
   z-index: $zindex-notif;
 

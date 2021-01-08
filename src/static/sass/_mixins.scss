@@ -3,7 +3,7 @@
 }
 
 @mixin box-shadow {
-  box-shadow: 0 0.2rem 0.4rem -0.3rem $color-fg-base;
+  box-shadow: 0 0.1rem 0.1rem -0.1rem $color-fg-base;
   transition: $transition-base;
 }
 
@@ -13,6 +13,6 @@
     &:hover,
     &:active,
     &:focus {
-      box-shadow: 0 0.5rem 1rem -0.5rem $color-fg-base-hl;
+      box-shadow: 0 0.2rem 0.4rem -0.2rem $color-fg-base-hl;
     }
 }

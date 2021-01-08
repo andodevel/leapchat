@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Button } from "react-bootstrap";
-import { FaArrowCircleRight } from "react-icons/fa";
+import { FaLocationArrow } from "react-icons/fa";
 import { FaSmile } from "react-icons/fa";
 import { Picker, emojiIndex } from "emoji-mart";
 import { connect } from "react-redux";
@@ -21,6 +21,7 @@ import {
 } from "../../actions/chatActions";
 
 import { chatHandler } from "../../epics/chatEpics";
+import "./index.scss";
 
 class MessageForm extends Component {
   constructor(props) {
@@ -184,29 +185,29 @@ class MessageForm extends Component {
 
               <div className="right-chat-icons">
                 <button
-                  style={{ height: "100%", padding: "0 8px 0 10px" }}
+                  style={{ height: "100%", padding: "0.8rem 1rem" }}
                   className="delete-all-msgs"
                   onClick={this.onDeleteAllMsgs}
                 >
-                  Delete All Messages Forever
+                  Clear Chat
                 </button>
               </div>
             </div>
 
-            <div className="message" onKeyDown={this.handleKeyDown}>
+            <div className="message-input__input" onKeyDown={this.handleKeyDown}>
               <textarea
                 className="form-control"
                 onChange={this.props.messageUpdate}
                 onKeyPress={this.onKeyPress}
                 onKeyDown={this.onKeyDown}
-                name="message"
+                name="message-input__input"
                 value={message}
                 ref={this.setMessageInput}
                 placeholder="Enter message"
               ></textarea>
-              <Button onClick={this.onSendMessage}>
-                <FaArrowCircleRight size={30} />
-              </Button>
+              <div className="btn-send">
+                <FaLocationArrow size={30} onClick={this.onSendMessage}/>
+              </div>
             </div>
           </div>
         </form>

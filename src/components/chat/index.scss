@@ -1,0 +1,15 @@
+@import "../../static/sass/variables.scss";
+
+.message-input__input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn-send {
+  margin-left: 2rem;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  color: $color-link;
+}

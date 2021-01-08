@@ -7,6 +7,8 @@ import {
   OfflineUserIcon,
 } from "./UserStatusIcons";
 import ToggleUserListIcon from "./ToggleUserListIcon";
+import useMedia from "../../../hooks/useMedia";
+import { Media } from "../../../models";
 
 interface UserListProps {
   displayUserList: boolean;
@@ -18,7 +20,13 @@ const UserList: FunctionComponent<UserListProps> = ({
   statuses
 }) => {
 
+  const media = useMedia();
+
   const styleUserList = () => {
+    if (media === Media.DESKTOP) {
+      return { display: "block" };
+    }
+
     if (displayUserList) {
       return { display: "block" };
     } else {
